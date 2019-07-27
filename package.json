@@ -19,7 +19,7 @@
   },
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
-    "start": "npm-run-all --parallel open lint:watch test:watch",
+    "start": "npm-run-all --parallel lint:watch test:watch open",
     "open": "babel-node tools/srcServer.js",
     "lint:fix":"node_modules/.bin/esw webpack.config.* src tools --fix",
     "lint:watch":"node_modules/.bin/esw webpack.config.* src tools -w",
