@@ -18,7 +18,13 @@
     "toastr": "2.1.2"
   },
   "scripts": {
-    "start": "babel-node tools/srcServer.js"
+    "prestart": "babel-node tools/startMessage.js",
+    "start": "npm-run-all --parallel open lint:watch test:watch",
+    "open": "babel-node tools/srcServer.js",
+    "lint:fix":"node_modules/.bin/esw webpack.config.* src tools --fix",
+    "lint:watch":"node_modules/.bin/esw webpack.config.* src tools -w",
+    "test": "mocha --reporter progress tools/testSetup.js \"src/**/*.test.js\"",
+    "test:watch":"npm run test -- --watch"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
