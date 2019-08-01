@@ -1,18 +1,27 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Header from "./common/header/Header";
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import HomePage from "./home/HomePage";
+import AboutPage from "./about/AboutPage";
+import CoursesPage from "./courses/CoursesPage";
 
-export default class App extends Component {
-  render() {
-    return (
-      <div className="container-fluid">
-        <Header />
-        {this.props.children}
+const AppPage = () => {
+  return (
+    <Router>
+      <div>
+        <nav>
+          <Link to="/">Home</Link>
+          {" | "}
+          <Link to="/courses">Courses</Link>
+          {" | "}
+          <Link to="/about">About</Link>
+        </nav>
+
+        <Route exact path="/" component={HomePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/courses" component={CoursesPage} />
       </div>
-    );
-  }
-}
-
-App.propTypes = {
-  children: PropTypes.object.isRequired
+    </Router>
+  );
 };
+
+export default AppPage;
