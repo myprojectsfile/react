@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as courseActions from "../../actions/courseActions";
+import PropTypes from "prop-types";
 
-export default class CoursesPage extends Component {
+class CoursesPage extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -18,14 +21,22 @@ export default class CoursesPage extends Component {
     this.setState({ course: course });
   }
 
+  courseRow(course, index) {
+    return <div key={index}>{course.title}</div>;
+  }
+
   onClickSave() {
-    alert(`saving ${this.state.course.title}`);
+    // eslint-disable-next-line no-console
+    console.log(this.state.course);
+
+    this.props.dispatch(courseActions.createCourse(this.state.course));
   }
 
   render() {
     return (
       <div>
         <h1>Courses</h1>
+        {this.props.courses.map(this.courseRow)}
         <h2>Add Course</h2>
         <input
           type="text"
@@ -37,3 +48,14 @@ export default class CoursesPage extends Component {
     );
   }
 }
+
+CoursesPage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  courses: PropTypes.array.isRequired
+};
+
+function mapStateToProps(state) {
+  return { courses: state.courses };
+}
+
+export default connect(mapStateToProps)(CoursesPage);
