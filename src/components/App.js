@@ -5,8 +5,11 @@ import AboutPage from "./about/AboutPage";
 import CoursesPage from "./courses/CoursesPage";
 import configureStore from "../store/configureStore";
 import { Provider } from "react-redux";
+import { loadCourses } from "../actions/courseActions";
+import ManageCoursePage from "./courses/ManageCoursePage";
 
 const store = configureStore();
+store.dispatch(loadCourses());
 
 const AppPage = () => {
   return (
@@ -24,6 +27,8 @@ const AppPage = () => {
           <Route exact path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/courses" component={CoursesPage} />
+          <Route exact path="/course" component={ManageCoursePage} />
+          <Route path="/course/:id" component={ManageCoursePage} />
         </div>
       </Router>
     </Provider>
